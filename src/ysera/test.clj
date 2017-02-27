@@ -1,4 +1,4 @@
-(ns ysera.test.core
+(ns ysera.test
   (:require [clojure.test]))
 
 (defmacro deftest [name & body]
@@ -19,7 +19,7 @@
          equal# (= actual# expected#)]
      (do
        (when-not equal#
-         (println "Actual:\t\t" actual# "\nExpected:\t" expected#))
+         (println "Actual:   " actual# "\nExpected: " expected#))
        (clojure.test/is (= actual# expected#)))))
 
 (defmacro is-not [actual]
@@ -32,14 +32,3 @@
           (clojure.test/is false))
         (catch Exception e#
           (clojure.test/is true))))
-
-
-
-
-
-
-
-
-
-
-

@@ -1,4 +1,4 @@
-(ns ysera.test.core)
+(ns ysera.test)
 
 (defn deftest [name & body]
       (println "Not implemented."))
@@ -18,4 +18,3 @@
 
 (defn error? [actual]
       (println "Not implemented."))
-

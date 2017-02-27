@@ -1,5 +1,5 @@
-(ns ysera.collections.core
-  (:use [ysera.test.core :only [is is=]]))
+(ns ysera.collections
+  (:require [ysera.test :refer [is is=]]))
 
 (defn
   ^{:doc  "Gets the index of the given element of the collection."
@@ -22,9 +22,9 @@
 (defn
   ^{:doc  "Removes one instance of the given element in the given collection."
     :test (fn []
-            (is= (remove-one "a" ["a" "b" "c"])
+            (is= (remove-one ["a" "b" "c"] "a")
                  ["b" "c"])
-            (is= (remove-one "a" ["a" "a" "c"])
+            (is= (remove-one ["a" "a" "c"] "a")
                  ["a" "c"]))}
-  remove-one [el coll]
+  remove-one [coll el]
   (let [[n m] (split-with (partial not= el) coll)] (concat n (rest m))))
