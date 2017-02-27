@@ -1,3 +1,6 @@
+
+[![Clojars Project](https://img.shields.io/clojars/v/ysera.svg)](https://clojars.org/ysera)
+
 # ysera
 
 Tools for Clojure development
