@@ -1,4 +1,4 @@
-(defproject ysera "1.0.0"
+(defproject ysera "1.0.1"
   :description "Useful tools for Clojure"
   :url ""
   :license {}
