@@ -7,7 +7,7 @@ Tools for Clojure development
 
 ### Why?
 
-We like to write our programs in Clojure Common `.cljc` files. We dislike all the interop that needs to be coded in such files, we want abstractions instead that handles all the interop for us. This includes the interop needed for handling CLJS and CLJ ways of namespace importing, e.g. the clojure test library.
+We like to write our programs in Clojure Common `.cljc` files. We dislike all the interop that needs to be coded in such files, we want abstractions instead that handles all the interop for us. This includes the interop needed for handling CLJS and CLJ ways of namespace importing, e.g. the clojure test library. Unfortunately, our approach to this stopped working so you need to do the hideous `:refer/:refer-macros` for the test functions at the moment.
 
 We also added the `is=` function because we suffered a lot from the optional `msg` argument in the default clojure `is` function. This lead to incorrectly typed test forms resulting in a passed test, like the following: `(is (= (* 2 2)) (+ 2 2)) -> true`.
 
