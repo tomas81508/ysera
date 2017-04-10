@@ -52,26 +52,3 @@
             (clojure.test/is false))
           (catch Exception e#
             (clojure.test/is true)))))
-
-(clojure.test/deftest
- similarity
- (clojure.test/is (= (macroexpand '(clojure.test/is (= 1 1)))
-                     (macroexpand '(is (= 1 1)))))
- (clojure.test/is (= (macroexpand '(clojure.test/testing "foo" (= 1 1)))
-                     (macroexpand '(testing "foo" (= 1 1)))))
- (clojure.test/is (= (macroexpand '(clojure.test/is (clojure.core/not (= 2 1))))
-                     (macroexpand '(is-not (= 2 1)))))
- (clojure.test/is (= (macroexpand '(clojure.test/deftest
-                                    name
-                                    (clojure.core/is (= 1 1))
-                                    (clojure.core/is (= 2 2))))
-                     (macroexpand '(deftest
-                                     name
-                                     (clojure.core/is (= 1 1))
-                                     (clojure.core/is (= 2 2)))))))
-
-(clojure.test/deftest equals-1-1
-  (is (= 1 1))
-  (testing "that 1 equals 1" (= 1 1))
-  (is= 1 1)
-  (is-not (= 1 2)))
