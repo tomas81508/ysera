@@ -2,9 +2,10 @@
   (:require [ysera.test :refer [is error?]]))
 
 (defn error
+  "Throws an error with the given messages"
   {:test (fn []
-           (is (error? (error "hello"))))}
-  [& strs]
-  (let [message (apply str strs)]
+           (error? (error "hello")))}
+  [& messages]
+  (let [message (apply str messages)]
     (throw #?(:cljs (js/Error message)
               :clj  (Exception. message)))))
