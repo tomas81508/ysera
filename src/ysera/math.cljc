@@ -1,4 +1,4 @@
-(ns ysera.numeric
+(ns ysera.math
   (:require
     [ysera.test :refer [is=]]))
 
