@@ -67,3 +67,7 @@
                                            (range (count coll)))]
     [new-seed shuffled-coll]))
 
+(defn get-random-uuid []
+  "Creates a random uuid-string in both Clojure and ClojureScript."
+  #?(:clj  (str (java.util.UUID/randomUUID))
+     :cljs (cljs.core/random-uuid)))

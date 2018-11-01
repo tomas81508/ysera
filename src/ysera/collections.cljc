@@ -29,3 +29,17 @@
                 ["a" "c"]))}
   [coll x]
   (let [[n m] (split-with (partial not= x) coll)] (concat n (rest m))))
+
+(defn empty->nil
+  "Converts the collection to nil if it is empty."
+  {:test (fn []
+           (is= (empty->nil []) nil)
+           (is= (empty->nil [1]) [1])
+           (is= (empty->nil '()) nil)
+           (is= (empty->nil '(1)) '(1))
+           (is= (empty->nil {}) nil)
+           (is= (empty->nil {:a 1}) {:a 1})
+           (is= (empty->nil #{}) nil)
+           (is= (empty->nil #{1}) #{1}))}
+  [coll]
+  (if (empty? coll) nil coll))
