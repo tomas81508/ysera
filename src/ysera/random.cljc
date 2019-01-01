@@ -1,19 +1,27 @@
 (ns ysera.random
-  (:require [ysera.test :refer [is=]]
+  (:require [ysera.test :refer [is= is]]
             [ysera.collections :refer [remove-one]]))
 
-(defn get-pseudo-random-number [seed]
+(defn- get-pseudo-random-number
+  [seed]
   (let [xor-right (fn [x n] (bit-xor x (bit-shift-right x n)))
         xor-left (fn [x n] (bit-xor x (bit-shift-left x n)))]
     (+ 1 (-> (xor-left seed 21)
              (xor-right 35)
              (xor-left 4)))))
 
-(defn get-random-int [seed max]
+(defn get-random-int
+  "Returns a new seed and a random integer x such that 0 <= x < max."
+  {:test (fn []
+           (is= (get-random-int 1 1)
+                [35651602 0])
+           (is= (get-random-int 35651602 12)
+                [1130298060341683 10]))}
+  [seed max]
   [(get-pseudo-random-number seed) (mod seed max)])
 
 (defn random-nth
-  "Returns a random element of the collection. Returns the tuple [state result]."
+  "Returns a new seed and a random element of the collection."
   {:test (fn []
            (is= (random-nth 0 ["a" "b" "c" "d" "e" "f"])
                 [1 "a"])
@@ -26,8 +34,8 @@
       [new-seed (nth coll random-number)])))
 
 (defn take-n-random
-  "Takes (at most) n different random elements from the collection. Returns the tuple [state result].
- If the collection contains less elements than n, all elements will be returned in a random order."
+  "Returns a new seed and (at most) n different random elements from the collection.
+   If the collection contains less elements than n, all elements will be returned in a random order."
   {:test (fn []
            (is= (take-n-random 0 3 ["a" "b" "c" "d"])
                 [1130298060341683 ["a" "c" "b"]])
@@ -55,19 +63,26 @@
           [new-seed (remove nil? result)])))
 
 (defn shuffle-with-seed
+  "Returns a new seed and the collection shuffled."
   {:test (fn []
            (is= (shuffle-with-seed 1 ["a" :b 3 "d"])
-                [-9136436700791295257 [:b 3 "d" "a"]]))}
+                [-9136436700791295257 [:b 3 "d" "a"]])
+           (is= (shuffle-with-seed 2 [1 1 2])
+                [39562792388305809 [2 1 1]]))}
   [seed coll]
   (let [[new-seed shuffled-coll _] (reduce (fn [[seed shuffled-coll coll] _]
                                              (let [[seed item] (random-nth seed coll)
-                                                   coll (remove (fn [i] (= i item)) coll)]
+                                                   coll (remove-one coll item)]
                                                [seed (conj shuffled-coll item) coll]))
                                            [seed [] coll]
                                            (range (count coll)))]
     [new-seed shuffled-coll]))
 
-(defn get-random-uuid []
-  "Creates a random uuid-string in both Clojure and ClojureScript."
+(defn get-random-uuid
+  "Creates a random uuid-string."
+  {:test (fn []
+           (is (let [pattern #"[\w|\d]{8}-[\w|\d]{4}-[\w|\d]{4}-[\w|\d]{4}-[\w|\d]{11}"]
+                 (re-find pattern (get-random-uuid)))))}
+  []
   #?(:clj  (str (java.util.UUID/randomUUID))
      :cljs (cljs.core/random-uuid)))

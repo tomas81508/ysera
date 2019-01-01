@@ -1,6 +1,5 @@
 (ns ysera.numeric
-  (:require
-    [ysera.test :refer [is=]]))
+  (:require [ysera.test :refer [is=]]))
 
 (defn round
   {:doc "Deprecated. Use ysera.math/round."

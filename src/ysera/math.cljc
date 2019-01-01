@@ -1,6 +1,5 @@
 (ns ysera.math
-  (:require
-    [ysera.test :refer [is=]]))
+  (:require [ysera.test :refer [is=]]))
 
 (defn round
   {:test (fn []
@@ -14,22 +13,22 @@
 
 (defn floor
   {:test (fn []
-           (is= (round 2.4)
+           (is= (floor 2.4)
                 2)
-           (is= (round 2.5)
+           (is= (floor 2.5)
                 2))}
   [x]
-  #?(:clj  (Math/floor (double x))
+  #?(:clj  (int (Math/floor (double x)))
      :cljs (js/Math.floor x)))
 
 (defn ceil
   {:test (fn []
-           (is= (round 2.4)
+           (is= (ceil 2.4)
                 3)
-           (is= (round 2.5)
+           (is= (ceil 2.5)
                 3))}
   [x]
-  #?(:clj  (Math/ceil (double x))
+  #?(:clj  (int (Math/ceil (double x)))
      :cljs (js/Math.ceil x)))
 
 (defn sin [x]

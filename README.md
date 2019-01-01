@@ -3,11 +3,11 @@
 
 # ysera
 
-Tools for Clojure development
+Tools for Clojure/ClojureScript applications.
 
 ### Why?
 
-We like to write our programs in Clojure Common `.cljc` files. We dislike all the interop that needs to be coded in such files, we want abstractions instead that handles all the interop for us. This includes the interop needed for handling CLJS and CLJ ways of namespace importing, e.g. the clojure test library. Unfortunately, our approach to this stopped working so you need to do the hideous `:refer/:refer-macros` for the test functions at the moment.
+We like to write our programs in Clojure Common `.cljc` files. We dislike all the interop that needs to be coded in such files, we want abstractions instead that handles all the interop for us. This includes the interop needed for handling CLJS and CLJ ways of namespace importing, e.g. the clojure test library.
 
 We also added the `is=` function because we suffered a lot from the optional `msg` argument in the default clojure `is` function. This lead to incorrectly typed test forms resulting in a passed test, like the following: `(is (= (* 2 2)) (+ 2 2)) -> true`.
 
@@ -17,6 +17,7 @@ We are strong believers that examples are excellent documentation. Our inline fu
 
 #### `ysera.collections`
 
+* `empty->nil [coll]`
 * `index-of [coll x]`
 * `remove-one [el coll]`
 * `seq-contains? [coll x]`
@@ -25,12 +26,31 @@ We are strong believers that examples are excellent documentation. Our inline fu
 
 * `error [message]`
 
+#### `ysera.math`
+
+* `ceil [x]`
+* `cos [x]`
+* `floor [x]`
+* `round [x]`
+* `sin [x]`
+
+#### `ysera.random`
+
+* `get-random-int [seed max]`
+* `get-random-uuid []` (obviously non-pure)
+* `random-nth [seed coll]`
+* `shuffle-with-seed [seed coll]`
+* `take-n-random [seed n coll]`
+
 #### `ysera.test`
 
 * `deftest [name & body]`
 * `error? [actual]`
 * `is [form]`
-* `is [form msg]`
 * `is= [actual expected]`
 * `is-not [actual]`
 * `testing [string body]`
+
+#### `ysera.time`
+
+* `now []`
