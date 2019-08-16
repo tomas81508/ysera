@@ -1,5 +1,5 @@
 (ns ysera.math
-  (:require [ysera.test :refer [is=]]))
+  (:require [ysera.test #?(:clj :refer :cljs :refer-macros) [is=]]))
 
 (defn round
   {:test (fn []
@@ -31,10 +31,19 @@
   #?(:clj  (int (Math/ceil (double x)))
      :cljs (js/Math.ceil x)))
 
-(defn sin [x]
+(def PI #?(:clj  (Math/PI)
+           :cljs (js/Math.PI)))
+
+(defn sin
+  {:test (fn []
+           (is= (sin (/ PI 2)) 1.0))}
+  [x]
   #?(:clj  (Math/sin (double x))
      :cljs (js/Math.sin x)))
 
-(defn cos [x]
+(defn cos
+  {:test (fn []
+           (is= (cos PI) -1.0))}
+  [x]
   #?(:clj  (Math/cos (double x))
      :cljs (js/Math.cos x)))

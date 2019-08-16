@@ -1,5 +1,5 @@
 (defproject ysera "1.4.0"
-  :description "Useful tools for Clojure"
+  :description "Useful tools for Clojure/ClojureScript"
   :url ""
   :license {}
   :dependencies [[org.clojure/clojure "1.10.0"]]

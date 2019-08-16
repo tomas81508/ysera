@@ -1,5 +1,5 @@
 (ns ysera.random
-  (:require [ysera.test :refer [is= is]]
+  (:require [ysera.test #?(:clj :refer :cljs :refer-macros) [is= is]]
             [ysera.collections :refer [remove-one]]))
 
 (defn- get-pseudo-random-number
