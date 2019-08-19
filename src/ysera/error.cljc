@@ -1,5 +1,5 @@
 (ns ysera.error
-  (:require [ysera.test #?(:clj :refer :cljs :refer-macros) [is error?]]))
+     (:require [ysera.test :refer [error?]]))
 
 (defn error
   "Throws an error with the given messages"
