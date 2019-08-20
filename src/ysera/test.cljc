@@ -3,6 +3,7 @@
      :cljs (:require-macros [net.cgrand.macrovich :as macros]
                             [ysera.test :refer [deftest testing is is-not is= error?]])))
 
+(macros/deftime
 
   (defmacro is= [actual expected]
     `(do
