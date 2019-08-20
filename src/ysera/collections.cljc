@@ -1,5 +1,5 @@
 (ns ysera.collections
-  (:require [ysera.test #?(:clj :refer :cljs :refer-macros) [is is=]]))
+  (:require [ysera.test :refer [is is=]]))
 
 (defn index-of
   "Gets the index of the given element of the collection."

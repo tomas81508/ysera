@@ -1,5 +1,5 @@
 (ns ysera.math
-  (:require [ysera.test #?(:clj :refer :cljs :refer-macros) [is=]]))
+  (:require [ysera.test :refer [is=]]))
 
 (defn round
   {:test (fn []

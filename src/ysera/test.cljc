@@ -1,16 +1,8 @@
 (ns ysera.test
   #?(:clj  (:require [net.cgrand.macrovich :as macros])
      :cljs (:require-macros [net.cgrand.macrovich :as macros]
-                            []
-                            [ysera.test :refer [deftest
-                                                testing
-                                                is
-                                                is-not
-                                                is=
-                                                error?]])))
+                            [ysera.test :refer [deftest testing is is-not is= error?]])))
 
-
-(macros/deftime
 
   (defmacro is= [actual expected]
     `(do
