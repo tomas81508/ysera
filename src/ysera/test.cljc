@@ -1,7 +1,10 @@
 (ns ysera.test
-  #?(:clj  (:require [net.cgrand.macrovich :as macros])
-     :cljs (:require-macros [net.cgrand.macrovich :as macros]
-                            [ysera.test :refer [deftest testing is is-not is= error?]])))
+  #?(:clj  (:require [clojure.test]
+                     [net.cgrand.macrovich :as macros])
+     :cljs (:require [cljs.test]
+                     :require-macros
+                     [net.cgrand.macrovich :as macros]
+                     [ysera.test :refer [deftest testing is is-not is= error?]])))
 
 (macros/deftime
 
