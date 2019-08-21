@@ -1,10 +1,18 @@
 (ns ysera.test
-  #?(:clj  (:require [clojure.test]
-                     [net.cgrand.macrovich :as macros])
-     :cljs (:require [cljs.test]
-                     :require-macros
-                     [net.cgrand.macrovich :as macros]
-                     [ysera.test :refer [deftest testing is is-not is= error?]])))
+  #?(:clj (:require [clojure.test]
+                    [net.cgrand.macrovich :as macros]))
+  #?(:cljs (:require [cljs.test]))
+  #?(:cljs (:require-macros [net.cgrand.macrovich :as macros]
+                            [ysera.test :refer [deftest testing is is-not is= error?]]))
+  ;(:require [clojure.test]
+  ;          #?(:clj [net.cgrand.macrovich :refer [case deftime]]
+  ;             :cljs [net.cgrand.macrovich :refer-macros [case deftime]])
+  ;          #?(:cljs [ysera.test :refer [deftest testing is is-not is= error?]]))
+  ;#?(:clj  (:require [clojure.test]
+  ;                   [net.cgrand.macrovich :as macros])
+  ;   :cljs (:require-macros [net.cgrand.macrovich :as macros]
+  ;                          [ysera.test :refer [deftest testing is is-not is= error?]]))
+  )
 
 (macros/deftime
 
