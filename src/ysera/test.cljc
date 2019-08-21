@@ -1,54 +1,47 @@
 (ns ysera.test
-  #?(:clj (:require [clojure.test])))
+  #?(:clj  (:require [net.cgrand.macrovich :as macros])
+     :cljs (:require-macros [net.cgrand.macrovich :as macros]
+                            [ysera.test :refer [deftest testing is is-not is= error?]])))
 
-(defn cljs-env?
-  "Take the &env from a macro, and tell whether we are expanding into cljs."
-  [env]
-  (boolean (:ns env)))
+(macros/deftime
 
-(defmacro if-cljs
-  "Return then if we are generating cljs code and else for Clojure code.
-   https://groups.google.com/d/msg/clojurescript/iBY5HaQda4A/w1lAQi9_AwsJ"
-  [then else]
-  (if (cljs-env? &env) then else))
-
-(defmacro deftest [name & body]
-  `(if-cljs
-     (println "Not implemented.")
-     (clojure.test/deftest ~name ~@body)))
-
-(defmacro is [form]
-  `(if-cljs
-     (println "Not implemented.")
-     (clojure.test/is ~form)))
-
-(defmacro testing [string body]
-  `(if-cljs
-     (println "Not implemented.")
-     (clojure.test/testing ~string ~body)))
-
-(defmacro is= [actual expected]
-  `(if-cljs
-     (println "Not implemented.")
-     (let [actual# ~actual
-           expected# ~expected
-           equal# (= actual# expected#)]
-       (do
+  (defmacro is= [actual expected]
+    `(do
+       (let [actual# ~actual
+             expected# ~expected
+             equal# (= actual# expected#)]
          (when-not equal#
            (println "Actual:\t\t" actual# "\nExpected:\t" expected#))
-         (clojure.test/is (= actual# expected#))))))
+         (macros/case :clj (clojure.test/is (= actual# expected#))
+                      :cljs (cljs.test/is (= actual# expected#))))))
 
-(defmacro is-not [actual]
-  `(if-cljs
-     (println "Not implemented.")
-     (clojure.test/is (not ~actual))))
+  (defmacro deftest [name & body]
+    `(do
+       (macros/case :clj (clojure.test/deftest ~name ~@body)
+                    :cljs (cljs.test/deftest ~name ~@body))))
+  (defmacro testing [string body]
+    `(do
+       (macros/case :clj (clojure.test/testing ~string ~body)
+                    :cljs (cljs.test/testing ~string ~body))))
 
-(defmacro error? [actual]
-  `(if-cljs
-     (println "Not implemented.")
-     (try (do
-            ~actual
-            (println "An error was expected.")
-            (clojure.test/is false))
-          (catch Exception e#
-            (clojure.test/is true)))))
+  (defmacro is [form]
+    `(do
+       (macros/case :clj (clojure.test/is ~form)
+                    :cljs (cljs.test/is ~form))))
+
+  (defmacro is-not [form]
+    `(do
+       (macros/case :clj (clojure.test/is (not ~form))
+                    :cljs (cljs.test/is (not ~form)))))
+
+  (defmacro error? [actual]
+    `(do ~(macros/case :clj `(try (do ~actual
+                                      (println "An error was expected.")
+                                      (clojure.test/is false ~(str "An error was expected:" actual)))
+                                  (catch Exception e#
+                                    (clojure.test/is true)))
+                       :cljs `(try (do ~actual
+                                       (println "An error was expected.")
+                                       (cljs.test/is false ~(str "An error was expected: " actual)))
+                                   (catch js/Object e#
+                                     (cljs.test/is true)))))))
