@@ -30,10 +30,11 @@
     `(do
        (macros/case :clj (clojure.test/deftest ~name ~@body)
                     :cljs (cljs.test/deftest ~name ~@body))))
-  (defmacro testing [string body]
+
+  (defmacro testing [string & body]
     `(do
-       (macros/case :clj (clojure.test/testing ~string ~body)
-                    :cljs (cljs.test/testing ~string ~body))))
+       (macros/case :clj (clojure.test/testing ~string ~@body)
+                    :cljs (cljs.test/testing ~string ~@body))))
 
   (defmacro is [form]
     `(do
