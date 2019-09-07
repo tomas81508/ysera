@@ -32,7 +32,7 @@
      :cljs (js/Math.ceil x)))
 
 (def PI #?(:clj  (Math/PI)
-           :cljs (js/Math.PI)))
+           :cljs js/Math.PI))
 
 (defn sin
   {:test (fn []
