@@ -16,9 +16,13 @@
            (is= (get-random-int 1 1)
                 [35651602 0])
            (is= (get-random-int 35651602 12)
-                [1130298060341683 10]))}
+                [1130298060341683 10])
+           (is= (get-random-int 35651602 0)
+                [1130298060341683 0]))}
   [seed max]
-  [(get-pseudo-random-number seed) (mod seed max)])
+  (case max
+    0 [(get-pseudo-random-number seed) 0]
+    [(get-pseudo-random-number seed) (mod seed max)]))
 
 (defn random-nth
   "Returns a new seed and a random element of the collection."
